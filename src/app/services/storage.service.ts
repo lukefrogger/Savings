@@ -33,9 +33,10 @@ export class StorageService {
         this.updateItems(existingDayIndex, items, newSavings);
         return this.storage.set(items_key, items);
       } else {
+        /* Create new DB entry since none has been found */
         return this.storage.set(
           items_key,
-          {date: format(new Date(), 'MM/DD/YYYY'), total: newSavings, savings: [{amount: newSavings}]}
+          {date: today, total: newSavings, savings: [{amount: newSavings}]}
         );
       }
     }).catch((fail) => console.log(fail));
@@ -43,14 +44,27 @@ export class StorageService {
 
   private updateItems(index, items: IDay[], newSavings: number): IDay[] {
     if(index >= 0){
+      /* Business logic - get the day total including the new amount */
+      let totalOfDay = this.getTotalOfDay(items[index].savings);
+      items[index].total = totalOfDay;
+      /* Add new savings to Day */
       items[index].savings.push({amount: newSavings});
     } else if(index === -1) {
+      /* Create Day since none has been found */
       items.push({date: format(new Date(), 'MM/DD/YYYY'), total: newSavings, savings: [{amount: newSavings}]});
     } else {
       console.log('No match for index  :(');
     }
 
     return items;
+  }
+
+  private getTotalOfDay(day: ISavings[]): number{
+    let total = 0;
+    for(let saving of day){
+      total += saving.amount;
+    }
+    return total;
   }
 
   getItems(): Promise<IDay[]> {

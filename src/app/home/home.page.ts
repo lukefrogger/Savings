@@ -1,7 +1,9 @@
-import { StorageService, Day } from './../services/storage.service';
+import { TransactionsState } from './../services/transactions';
+import { HeldDataService } from './../services/held-data.service';
+import { StorageService, IDay } from './../services/storage.service';
 import { Component, OnInit } from '@angular/core';
-import { subDays } from 'date-fns';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -9,13 +11,12 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
-  transactions: Day[];
+  transactions: IDay[];
   totalAmount: number = 0;
   hasSavings: boolean;
+  private subscription$: Subscription;
 
-  constructor(public router: Router, public storage: StorageService) {
-    
-  }
+  constructor(public router: Router, public storage: StorageService, public data: HeldDataService) {  }
 
   ngOnInit(): void {
     this.getTotalAmount();
@@ -23,17 +24,25 @@ export class HomePage implements OnInit{
 
   async getTotalAmount(){
     this.totalAmount = 0;
-    this.transactions = await this.storage.getItems();
+    this.data.update(await this.storage.getItems());
+  }
 
-    if(this.transactions == null || this.transactions.length == 0){
-      this.hasSavings = false;
-      return
-    }
-    
-    this.hasSavings = true;
-    for(let day of this.transactions){
-      this.totalAmount += day.total;
-    }
+  setupSub(){
+    this.subscription$ = this.data.transactionsState.subscribe(
+      (state: TransactionsState) => {
+        this.transactions = state.transactions;
+
+        if(this.transactions == null || this.transactions.length == 0){
+          this.hasSavings = false;
+        } else {
+          this.hasSavings = true;
+          for(let day of this.transactions){
+            this.totalAmount += day.total;
+          }
+        }
+        
+      }
+    );
   }
 
   addSavings(){

@@ -1,3 +1,4 @@
+import { HeldDataService } from './../services/held-data.service';
 import { Router } from '@angular/router';
 import { StorageService } from './../services/storage.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,13 +16,14 @@ export class EnterSavingsPage implements OnInit {
   constructor(
     public storage: StorageService,
     public router: Router,
-    public toastController: ToastController) { }
+    public toastController: ToastController,
+    public data: HeldDataService) { }
 
   ngOnInit() {  }
 
   async createSavings() {
     console.log(this.savings);
-    let updatedSavings = await this.storage.addItem(this.savings);
+    this.data.update(await this.storage.addItem(this.savings));
     this.presentToast();
     this.savings = undefined;
   }
