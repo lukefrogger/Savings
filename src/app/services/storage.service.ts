@@ -4,14 +4,14 @@ import { isSameDay, format } from 'date-fns';
 
 const items_key = 'transactions';
 
-export interface Savings {
+export interface ISavings {
   amount: number;
 }
 
-export interface Day {
+export interface IDay {
   total: number;
   date: string;
-  savings: [Savings];
+  savings: [ISavings];
 }
 
 @Injectable({
@@ -27,7 +27,7 @@ export class StorageService {
     // return this.storage.set(items_key, []);
     let today = format(new Date(), 'MM/DD/YYYY');
 
-    return this.storage.get(items_key).then((items: Day[]) => {
+    return this.storage.get(items_key).then((items: IDay[]) => {
       if (items) {
         let existingDayIndex = items.findIndex((day) => day.date === today);
         this.updateItems(existingDayIndex, items, newSavings);
@@ -41,7 +41,7 @@ export class StorageService {
     }).catch((fail) => console.log(fail));
   }
 
-  private updateItems(index, items: Day[], newSavings: number): Day[] {
+  private updateItems(index, items: IDay[], newSavings: number): IDay[] {
     if(index >= 0){
       items[index].savings.push({amount: newSavings});
     } else if(index === -1) {
@@ -53,7 +53,7 @@ export class StorageService {
     return items;
   }
 
-  getItems(): Promise<Day[]> {
+  getItems(): Promise<IDay[]> {
     return this.storage.get(items_key);
   }
 

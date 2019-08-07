@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { StorageService, Savings } from './../services/storage.service';
+import { StorageService } from './../services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 
