@@ -1,0 +1,7 @@
+{
+  "name": "savings",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

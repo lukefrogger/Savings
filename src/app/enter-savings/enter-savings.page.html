@@ -1,0 +1,19 @@
+<ion-header translucent="true">
+    <ion-toolbar>
+      <ion-title>Enter Savings</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+<ion-content padding>
+  <h3>Enter your savings info </h3>
+  <ion-item>
+    <ion-label position="stacked">How much have you saved?</ion-label>
+    <ion-input autofocus clear-input inputmode="numeric" type="number" placeholder="0.00" [(ngModel)]="savings"></ion-input>
+  </ion-item>
+  <br />
+  <ion-button color="primary" expand="block" (click)="createSavings()">Save Money!</ion-button>
+  <ion-button fill="clear" (click)="goBack()">
+    <ion-icon slot="start" name="arrow-round-back"></ion-icon>
+    Go Back
+  </ion-button>
+</ion-content>
