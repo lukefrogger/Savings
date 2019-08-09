@@ -24,7 +24,7 @@ export class StorageService {
   // CREATE
   addItem(newSavings: number): Promise<any> {
     /* Used to delete info */
-    // return this.storage.set(items_key, []);
+    // return this.storage.set(items_key, '');
     let today = format(new Date(), 'MM/DD/YYYY');
 
     return this.storage.get(items_key).then((items: IDay[]) => {
@@ -36,7 +36,7 @@ export class StorageService {
         /* Create new DB entry since none has been found */
         return this.storage.set(
           items_key,
-          {date: today, total: newSavings, savings: [{amount: newSavings}]}
+          [{date: today, total: newSavings, savings: [{amount: newSavings}]}]
         );
       }
     }).catch((fail) => console.log(fail));
@@ -44,11 +44,10 @@ export class StorageService {
 
   private updateItems(index, items: IDay[], newSavings: number): IDay[] {
     if(index >= 0){
-      /* Business logic - get the day total including the new amount */
-      let totalOfDay = this.getTotalOfDay(items[index].savings);
-      items[index].total = totalOfDay;
       /* Add new savings to Day */
       items[index].savings.push({amount: newSavings});
+      /* Business logic - get the day total including the new amount */
+      items[index].total = this.getTotalOfDay(items[index].savings);
     } else if(index === -1) {
       /* Create Day since none has been found */
       items.push({date: format(new Date(), 'MM/DD/YYYY'), total: newSavings, savings: [{amount: newSavings}]});

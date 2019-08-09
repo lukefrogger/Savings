@@ -1,7 +1,7 @@
+import { Feedback } from './../models/Feedback';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +12,17 @@ export class GoogleService {
     private http: HttpClient
   ) { }
 
-  postToSheet(form: any): Observable<any> {
+  postToSheet(form: Feedback): Observable<any> {
     const params = new HttpParams()
-      .set('rating', form.rating || '')
-      .set('improvement', form.rating || '')
-      .set('name', form.rating || '')
-      .set('email', form.rating || '')
-      .set('created', form.rating || '');
+      .set('rating', String(form.rating))
+      .set('improvement', form.improvement)
+      .set('name', form.name || '')
+      .set('email', form.email || '')
+      .set('created', form.created);
 
-    const today = new Date().toDateString() + '';
-    return this.http.post<any>(
+    return this.http.get<any>(
       'https://script.google.com/macros/s/AKfycbwqNxYNqX4v0vTOOrkhwpQA0DUzIYT9VvfCO9t1MMZlQNl-r3wF/exec',
-      params
+      {params}
     );
   }
 }

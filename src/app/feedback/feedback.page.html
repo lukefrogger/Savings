@@ -4,8 +4,38 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form [ngSubmit]="submitForm()">
-      <ion-button color="primary" type="submit">Primary</ion-button>
+<ion-content padding>
+  <form (ngSubmit)="submitForm()" novalidate>
+    <ion-item>
+      <ion-label position="stacked">Your Name</ion-label>
+      <ion-input type="text" [(ngModel)]="feedbackForm.name" name="name" class="form-controll" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Your Email</ion-label>
+      <ion-input type="email" [(ngModel)]="feedbackForm.email" name="email" class="form-controll" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked" >How would you rate Savings?</ion-label>
+      <ion-select placeholder="Select a rating" [(ngModel)]="feedbackForm.rating" name="rating">
+        <ion-select-option value="1">1 - terrible</ion-select-option>
+        <ion-select-option value="2">2</ion-select-option>
+        <ion-select-option value="2">3</ion-select-option>
+        <ion-select-option value="2">4</ion-select-option>
+        <ion-select-option value="2">5 - amazing</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">What improvements would you like to see?</ion-label>
+      <ion-textarea [(ngModel)]="feedbackForm.improvement" name="improve"></ion-textarea>
+    </ion-item>
+    <br/>
+    <ion-button color="primary" type="submit" expand="block">Send Feedback</ion-button>
   </form>
+  <ion-button fill="clear" (click)="goBack()">
+    <ion-icon slot="start" name="arrow-round-back"></ion-icon>
+    Go Back
+  </ion-button>
 </ion-content>

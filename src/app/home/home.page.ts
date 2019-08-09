@@ -39,6 +39,7 @@ export class HomePage implements OnInit {
           this.hasSavings = false;
         } else {
           this.hasSavings = true;
+          this.totalAmount = 0;
           for (const day of this.transactions) {
             this.totalAmount += day.total;
           }
