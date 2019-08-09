@@ -5,6 +5,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'savings', pathMatch: 'full' },
   { path: 'savings', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'enter-savings', loadChildren: './enter-savings/enter-savings.module#EnterSavingsPageModule' },
+  { path: 'feedback', loadChildren: './feedback/feedback.module#FeedbackPageModule' },
 ];
 
 @NgModule({

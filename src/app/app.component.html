@@ -1,3 +1,13 @@
 <ion-app>
+  <ion-header translucent="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-button (click)="giveFeedback()">
+            <ion-icon slot="icon-only" name="send"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      <ion-title>{{title.text}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

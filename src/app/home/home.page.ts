@@ -10,9 +10,9 @@ import { Subscription } from 'rxjs';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
+export class HomePage implements OnInit {
   transactions: IDay[];
-  totalAmount: number = 0;
+  totalAmount = 0;
   hasSavings: boolean;
   private subscription$: Subscription;
 
@@ -20,32 +20,35 @@ export class HomePage implements OnInit{
 
   ngOnInit(): void {
     this.getTotalAmount();
+    this.data.updatePageTitle({text: 'Savings', showBack: false});
   }
 
-  async getTotalAmount(){
+  async getTotalAmount() {
     this.totalAmount = 0;
-    this.data.update(await this.storage.getItems());
+    this.setupSub();
+    const days = await this.storage.getItems();
+    this.data.update(days);
   }
 
-  setupSub(){
+  setupSub() {
     this.subscription$ = this.data.transactionsState.subscribe(
       (state: TransactionsState) => {
         this.transactions = state.transactions;
 
-        if(this.transactions == null || this.transactions.length == 0){
+        if (this.transactions == null || this.transactions.length == 0) {
           this.hasSavings = false;
         } else {
           this.hasSavings = true;
-          for(let day of this.transactions){
+          for (const day of this.transactions) {
             this.totalAmount += day.total;
           }
         }
-        
       }
     );
   }
 
-  addSavings(){
+  addSavings() {
+    this.data.updatePageTitle({text: 'Save Money', showBack: true});
     this.router.navigate(['./enter-savings']);
   }
 
