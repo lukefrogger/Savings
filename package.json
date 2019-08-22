@@ -1,6 +1,6 @@
 {
   "name": "savings",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
@@ -9,7 +9,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build:android": "sudo ionic cordova build android --prod --release"
   },
   "private": true,
   "dependencies": {
