@@ -1,13 +1,12 @@
 {
   "name": "savings",
-  "version": "0.0.2",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "version": "0.0.3",
+  "author": "Luke Frauhiger",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:android": "sudo ionic cordova build android --prod --release; jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk alias_name; /Users/luke/Library/Android/sdk/build-tools/29.0.2/zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk app-signed.apk",
+    "build:android": "sudo ionic cordova build android --prod --release; jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk alias_name; rm -R app-signed.apk; /Users/luke/Library/Android/sdk/build-tools/29.0.2/zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk app-signed.apk",
     "test:android": "sudo ionic cordova run android -l"
   },
   "private": true,
