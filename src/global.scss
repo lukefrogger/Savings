@@ -24,3 +24,33 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import "./theme/variables.scss";
+
+ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+    --border-width: 0 !important;
+}
+
+
+
+.brand-red {
+    color: $brand-red;
+}
+.brand-yellow {
+    color: $brand-yellow;
+}
+.brand-orange {
+    color: $brand-orange;
+}
+
+.brand-background-red {
+    background: $brand-red;
+}
+.brand-background-yellow {
+    background: $brand-yellow;
+}
+.brand-background-orange {
+    background: $brand-orange;
+}
+

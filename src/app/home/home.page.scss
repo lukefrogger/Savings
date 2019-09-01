@@ -1,3 +1,35 @@
+@import '../../theme/variables.scss';
+
+$top-bar-height: 30%;
+
 .sub-total{
     font-size: 12px;   
+}
+
+.total-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $top-bar-height;
+    box-shadow: 0 6px 0 rgba($brand-yellow, .4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bubble {
+    height: 50%;
+    width: 60%;
+    background: white;
+    border-radius: 20px 0px 20px 0;
+    box-shadow: -4px 4px 0 rgba(0, 0, 0, 0.15), -10px 10px 0 rgba(0, 0, 0, 0.15);
+}
+
+.list-savings {
+    position: absolute;
+    top: $top-bar-height;
+    left: 0;
+    height: 70vh;
+    width: 100%;
 }

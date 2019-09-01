@@ -1,31 +1,28 @@
-<ion-header translucent="true">
-  <ion-toolbar>
-    <!-- <ion-title>Savings</ion-title> -->
-  </ion-toolbar>
-</ion-header>
 
-<ion-content padding>
-  <div class="ion-text-center">
-    <ion-text color="medium"><p>Your Total Savings</p></ion-text>
-    <h2 class="total">{{totalAmount | currency: 'USD'}}</h2>
-    <ion-text color="success" *ngIf="hasSavings"><div class="sub-total">Good job!</div></ion-text>
-    <ion-text color="warning" *ngIf="!hasSavings"><div class="sub-total">Don't worry, we won't tell anyone ;)</div></ion-text>
+<ion-content padding fullscreen>
+  <div class="total-bar brand-background-yellow">
+    <div class="ion-text-center bubble">
+      <h2 class="total">{{totalAmount | currency: 'USD'}}</h2>
+      <ion-text *ngIf="hasSavings"><div class="sub-total">saved so far</div></ion-text>
+      <ion-text *ngIf="!hasSavings"><div class="sub-total">Don't worry, we won't tell anyone ;)</div></ion-text>
+    </div>
   </div>
-  <h3>Your past savings</h3>
-  <ion-list *ngIf="hasSavings">
-    <ion-item-group *ngFor="let day of transactions">
-      <ion-list-header>
-        <ion-label>{{day.date | date: longDate}}</ion-label>
-      </ion-list-header>
-      <ion-item *ngFor="let trans of day.savings" >
-        <ion-label>{{trans.amount | currency: 'USD'}}</ion-label>
-      </ion-item>
-    </ion-item-group>
-  </ion-list>
-  <div *ngIf="!hasSavings">
-    <p>You don't have any past saving. Add one now!</p>
+  <div class="list-savings">
+    <h3>Your past savings</h3>
+    <ion-list *ngIf="hasSavings">
+      <ion-item-group *ngFor="let day of transactions">
+        <ion-list-header>
+          <ion-label>{{day.date | date: longDate}}</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let trans of day.savings" >
+          <ion-label>{{trans.amount | currency: 'USD'}}</ion-label>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+    <div *ngIf="!hasSavings">
+      <p>You don't have any past saving. Add one now!</p>
+    </div>
   </div>
-
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addSavings()">
       <ion-icon name="add-circle-outline"></ion-icon>
