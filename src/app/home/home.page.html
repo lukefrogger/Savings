@@ -1,14 +1,13 @@
 
-<ion-content padding fullscreen>
+<ion-content >
   <div class="total-bar brand-background-yellow">
     <div class="ion-text-center bubble">
-      <h2 class="total">{{totalAmount | currency: 'USD'}}</h2>
-      <ion-text *ngIf="hasSavings"><div class="sub-total">saved so far</div></ion-text>
-      <ion-text *ngIf="!hasSavings"><div class="sub-total">Don't worry, we won't tell anyone ;)</div></ion-text>
+      <div class="total">{{totalAmount | currency: 'USD'}}</div>
+      <div class="sub-total" *ngIf="hasSavings">saved so far</div>
+      <div class="sub-total" *ngIf="!hasSavings">Don't worry, we won't tell anyone ;)</div>
     </div>
   </div>
-  <div class="list-savings">
-    <h3>Your past savings</h3>
+  <div class="list-savings" padding>
     <ion-list *ngIf="hasSavings">
       <ion-item-group *ngFor="let day of transactions">
         <ion-list-header>

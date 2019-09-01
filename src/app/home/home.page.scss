@@ -23,13 +23,25 @@ $top-bar-height: 30%;
     width: 60%;
     background: white;
     border-radius: 20px 0px 20px 0;
-    box-shadow: -4px 4px 0 rgba(0, 0, 0, 0.15), -10px 10px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: -4px 4px 0 rgba(0, 0, 0, 0.15), -10px 10px 0 rgba(0, 0, 0, 0.20);
+    padding: .5em 1em;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    .total {
+        font-size: 50px;
+        line-height: 1;
+    }
 }
 
 .list-savings {
     position: absolute;
     top: $top-bar-height;
     left: 0;
-    height: 70vh;
+    // height: 70vh;
     width: 100%;
+    ion-list-header {
+        color: $brand-red;
+        font-weight: 600;
+    }
 }
