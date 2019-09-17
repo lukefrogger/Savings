@@ -1,17 +1,11 @@
 <ion-content>
   <div class="savings-body">
     <h2 class="brand-blue">Add Savings</h2>
-    <!-- <ion-item>
-      <ion-label position="stacked">How much have you saved?</ion-label>
-      <ion-input autofocus clear-input inputmode="numeric" type="number" placeholder="0.00" [(ngModel)]="savings"></ion-input>
-    </ion-item> -->
-      <ion-item class="custom-input">
-        <!-- <ion-label position="stacked">Floating Label</ion-label> -->
-        <ion-input type="number" inputmode="numeric" autofocus placeholder="0.00"></ion-input>
-      </ion-item>
+
+    <input type="text" inputmode="numeric" [ngModel]="savings" (ngModelChange)="updateEntry($event)" >
       
     <br />
-    <ion-button color="primary" expand="block" (click)="createSavings()">Save Money!</ion-button>
+    <ion-button color="primary" expand="block" (click)="createSavings()" >Save Money!</ion-button>
     <ion-button fill="clear" (click)="goBack()">
       <ion-icon slot="start" name="arrow-round-back"></ion-icon>
       Go Back

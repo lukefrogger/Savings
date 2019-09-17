@@ -11,28 +11,56 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./enter-savings.page.scss'],
 })
 export class EnterSavingsPage implements OnInit {
-  savings: number;
+  savings = '0.00';
 
   constructor(
     public storage: StorageService,
     public router: Router,
-    public toastController: ToastController,
-    public data: HeldDataService) { }
+    public toastController: ToastController) { }
 
   ngOnInit() {
-    this.data.updatePageTitle({text: 'Save Money', showBack: true});
    }
 
   async createSavings() {
-    console.log(this.savings);
-    const updatedDays = await this.storage.addItem(this.savings);
-    this.data.update(updatedDays);
-    this.presentToast();
-    this.savings = undefined;
+    // console.log(this.savings);
+    // const updatedDays = await this.storage.addItem(this.savings);
+    // this.data.update(updatedDays);
+    // this.presentToast();
+    // this.savings = undefined;
+  }
+
+  updateEntry(newNum) {
+
+    if(newNum === '0.0' || newNum.length < 3){
+      this.savings = '0.00';
+      // console.log(`less than three ${this.savings}`);
+      return;
+    }
+
+    // Remove the '.'
+    let splitStr = newNum.split('.');
+
+    // Create a new array without the zero
+    let splitPre = splitStr[0].split('');
+    let splitPost = splitStr[1].split('');
+    const strList = [...splitPre, ...splitPost];
+
+    // Remove or add the zero based on total array length 
+    if(strList.length < 3) {
+      strList.splice(0, 0, "0");
+    } else {
+      if(strList[0] == "0" && strList.length >= 3){
+        strList.splice(0, 1);
+      }
+    }
+
+    // Set the decimal place based on array length
+    strList.splice(strList.length - 2, 0, '.');
+
+    this.savings = strList.join('');
   }
 
   goBack() {
-    this.data.updatePageTitle({text: 'My Savings', showBack: false});
     this.router.navigate(['./savings']);
   }
 
