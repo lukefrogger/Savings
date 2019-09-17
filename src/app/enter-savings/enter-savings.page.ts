@@ -31,9 +31,9 @@ export class EnterSavingsPage implements OnInit {
 
   updateEntry(newNum) {
 
+    /* Not catching any removals */
     if(newNum === '0.0' || newNum.length < 3){
       this.savings = '0.00';
-      // console.log(`less than three ${this.savings}`);
       return;
     }
 
