@@ -34,11 +34,19 @@ $top-bar-height: 30%;
     }
 }
 
+ion-fab {
+    position: absolute;
+    top: $top-bar-height - 5%;
+    ion-fab-button {
+        --background: #FF0F00;
+        --background-activated: #FF8A00;
+    }
+}
+
 .list-savings {
     position: absolute;
     top: $top-bar-height;
     left: 0;
-    // height: 70vh;
     width: 100%;
     ion-list-header {
         color: $brand-red;

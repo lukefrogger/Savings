@@ -2,6 +2,13 @@
 
 .savings-body {
     background: $brand-orange;
+    // background: -webkit-linear-gradient(-30deg, $brand-orange 0%,$brand-orange 60%, $brand-blue 50%,$brand-blue 100%);
+    background: -webkit-linear-gradient(
+        -60deg, 
+        $brand-orange 54%,
+        rgba($brand-orange, .4) 54%,
+        rgba($brand-orange, .4) 55%,
+        $brand-blue 55%);
     position: absolute;
     top: 0px;
     left: 0px;
@@ -15,12 +22,13 @@
     }
 
     #mobileInput {
-        background: $brand-blue;
-        border: 1px solid $brand-yellow;
-        border-radius: 4px;
-        padding: .25rem;
-        font-size: 1.2rem;
-        color: $brand-yellow;
+        background: white;
+        border: 0;
+        border-radius: 15px 0px 15px 0px;
+        padding: 0.4rem 0.6rem;
+        font-size: 1.5rem;
+        color: $brand-blue;
+        box-shadow: -4px 4px 0 rgba(0, 0, 0, 0.15), -10px 10px 0 rgba(0, 0, 0, 0.2);
         &:focus {
             outline: 0;
         }
