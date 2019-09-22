@@ -2,7 +2,11 @@
   <div class="savings-body">
     <h2 class="brand-blue">Add Savings</h2>
 
-    <input type="text" inputmode="numeric" [ngModel]="savings" (ngModelChange)="updateEntry($event)" >
+    <input 
+      id="mobileInput"
+      type="text" 
+      inputmode="numeric" 
+      (input)="updateEntry($event.target.value)">
       
     <br />
     <ion-button color="primary" expand="block" (click)="createSavings()" >Save Money!</ion-button>

@@ -1,4 +1,4 @@
-import { HeldDataService } from './../services/held-data.service';
+import { MobileInputPipe } from './../pipes/mobile-input.pipe';
 import { Router } from '@angular/router';
 import { StorageService } from './../services/storage.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +11,7 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./enter-savings.page.scss'],
 })
 export class EnterSavingsPage implements OnInit {
-  savings = '0.00';
+  input: any;
 
   constructor(
     public storage: StorageService,
@@ -19,6 +19,8 @@ export class EnterSavingsPage implements OnInit {
     public toastController: ToastController) { }
 
   ngOnInit() {
+    this.input = document.getElementById('mobileInput');
+    this.input.value = '$0.00';
    }
 
   async createSavings() {
@@ -30,47 +32,51 @@ export class EnterSavingsPage implements OnInit {
   }
 
   updateEntry(newNum) {
+    const value = this.validateEntry(newNum);
 
-    /* Not catching any removals */
-    if(newNum === '0.0' || newNum.length < 3){
-      this.savings = '0.00';
-      return;
-    }
+    this.formatEntry(value);
+  }
+
+  formatEntry(num) {
 
     // Remove the '.'
-    let splitStr = newNum.split('.');
+    let splitStr = num.split('.');
 
     // Create a new array without the zero
     let splitPre = splitStr[0].split('');
     let splitPost = splitStr[1].split('');
     const strList = [...splitPre, ...splitPost];
-
+ 
     // Remove or add the zero based on total array length 
     if(strList.length < 3) {
       strList.splice(0, 0, "0");
     } else {
-      if(strList[0] == "0" && strList.length >= 3){
+      if(strList[0] == "0" && strList.length > 3){
         strList.splice(0, 1);
       }
     }
-
+ 
     // Set the decimal place based on array length
     strList.splice(strList.length - 2, 0, '.');
+ 
+    console.log(strList.join(''));
+    this.input.value = `$${strList.join('')}`;
+  }
 
-    this.savings = strList.join('');
+  validateEntry(num) {
+    let rtnValue = num.replace('$', '');
+    rtnValue = rtnValue.replace(/[^\d.-]/g, '')
+
+     /* Not catching any removals */
+     if(rtnValue === '0.0' || rtnValue.length < 3){
+      rtnValue = '0.00';
+    }
+
+    return rtnValue;
   }
 
   goBack() {
     this.router.navigate(['./savings']);
-  }
-
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'Your savings has been added!',
-      color: 'success',
-      duration: 4000
-    });
-    toast.present();
   }
 
 }
