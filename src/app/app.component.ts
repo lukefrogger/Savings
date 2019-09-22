@@ -27,7 +27,6 @@ export class AppComponent {
   }
 
   giveFeedback() {
-    this.data.updatePageTitle({text: 'Feedback', showBack: false});
     this.router.navigate(['./feedback']);
   }
 

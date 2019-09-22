@@ -20,8 +20,4 @@ export class HeldDataService {
   update(updatedDays){
     this.transactionsSubject.next({ transactions: updatedDays } as TransactionsState);
   }
-
-  updatePageTitle(title: {text: string, showBack: boolean}) {
-    this.pageTitleSubject.next(title);
-  }
 }

@@ -23,7 +23,6 @@ export class FeedbackPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.data.updatePageTitle({text: 'Feedback', showBack: false});
     this.setupLoading();
   }
 
@@ -62,7 +61,6 @@ export class FeedbackPage implements OnInit {
   }
 
   goBack() {
-    this.data.updatePageTitle({text: 'My Savings', showBack: false});
     this.router.navigate(['./savings']);
   }
 }

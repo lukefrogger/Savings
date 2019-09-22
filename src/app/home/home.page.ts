@@ -20,7 +20,6 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.getTotalAmount();
-    this.data.updatePageTitle({text: 'Savings', showBack: false});
   }
 
   async getTotalAmount() {
@@ -49,7 +48,6 @@ export class HomePage implements OnInit {
   }
 
   addSavings() {
-    this.data.updatePageTitle({text: 'Save Money', showBack: true});
     this.router.navigate(['./enter-savings']);
   }
 

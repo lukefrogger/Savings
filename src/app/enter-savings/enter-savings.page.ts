@@ -1,4 +1,4 @@
-import { MobileInputPipe } from './../pipes/mobile-input.pipe';
+import { HeldDataService } from './../services/held-data.service';
 import { Router } from '@angular/router';
 import { StorageService } from './../services/storage.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,9 +14,10 @@ export class EnterSavingsPage implements OnInit {
   input: any;
 
   constructor(
-    public storage: StorageService,
-    public router: Router,
-    public toastController: ToastController) { }
+    private storage: StorageService,
+    private router: Router,
+    private toastController: ToastController,
+    private data: HeldDataService) { }
 
   ngOnInit() {
     this.input = document.getElementById('mobileInput');
@@ -24,16 +25,20 @@ export class EnterSavingsPage implements OnInit {
    }
 
   async createSavings() {
-    // console.log(this.savings);
-    // const updatedDays = await this.storage.addItem(this.savings);
-    // this.data.update(updatedDays);
-    // this.presentToast();
-    // this.savings = undefined;
+    if(this.input.value == '$0.00') {
+      this.presentToast('You cannot add a $0 amount.');
+      return;
+    }
+    const numberEntry = Number(this.parseEntry(this.input.value));
+    const updatedDays = await this.storage.addItem(numberEntry);
+    this.data.update(updatedDays);
+    this.presentToast("You've saved money!");
+    this.parseEntry('0');
+    this.goBack();
   }
 
   updateEntry(newNum) {
-    const value = this.validateEntry(newNum);
-
+    const value = this.parseEntry(newNum);
     this.formatEntry(value);
   }
 
@@ -63,13 +68,11 @@ export class EnterSavingsPage implements OnInit {
     this.input.value = `$${strList.join('')}`;
   }
 
-  validateEntry(num) {
-    let rtnValue = num.replace('$', '');
-    rtnValue = rtnValue.replace(/[^\d.-]/g, '')
-
-     /* Not catching any removals */
+  parseEntry(num: string): string {
+    const rtnValue = num.replace(/[^\d.-]/g, '');
+     /* For deletions or resetting */
      if(rtnValue === '0.0' || rtnValue.length < 3){
-      rtnValue = '0.00';
+      return '0.00';
     }
 
     return rtnValue;
@@ -77,6 +80,14 @@ export class EnterSavingsPage implements OnInit {
 
   goBack() {
     this.router.navigate(['./savings']);
+  }
+
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
   }
 
 }
