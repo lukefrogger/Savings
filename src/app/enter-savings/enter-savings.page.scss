@@ -14,13 +14,15 @@
         font-size: 30px;
     }
 
-    ion-item {
-        --background: $brand-orange;
-        ion-input {
-            --color: $brand-red;
-            --placeholder-color: $brand-yellow;
-            --placeholder-opacity: .5;
+    #mobileInput {
+        background: $brand-blue;
+        border: 1px solid $brand-yellow;
+        border-radius: 4px;
+        padding: .25rem;
+        font-size: 1.2rem;
+        color: $brand-yellow;
+        &:focus {
+            outline: 0;
         }
-        
     }
 }
